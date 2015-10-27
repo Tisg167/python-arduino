@@ -1,6 +1,7 @@
 import serial
-#import json
+import json
 import ast
+import time
 
 class Arduino:
     def __init__(self, dev='/dev/ttyACM0', baud=9600):
