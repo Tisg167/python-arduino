@@ -36,15 +36,22 @@ class Arduino:
             return chksum % 256
         except Exception as e:
             raise e
+    
+    def send_command(self, cmd, val):
+        out = str(cmd) + str(val) + '\n'
+        self.port.write(out)
 
 if __name__ == '__main__':
-    app = Arduino()
+    d = raw_input('Enter the device name: ')
+    app = Arduino(dev=d)
     while True:
         try:
             a = app.listen()
             res = app.parse(a)
             print res
         except KeyboardInterrupt:
-            break
+            c = raw_input('Specify servo (A/B): ')
+            v = raw_input('Specify speed/positon (0-180): ')
+            app.send_command(c,v)
         except Exception as e:
             print str(e)
